@@ -37,13 +37,17 @@
 </head>
 <body>
   <h1>Demo of SD </h1>
+  <div id="info">
+    <button onclick="saveCapture()">Capture</button>
+    <button onclick="undoDraw()">Undo</button>
+    <div id="captureResult" style="padding: 10px; background: #f5da55">
+      <h4 style="color: #000; ">Hello world!</h4>
+      <div id="canvasImg" class="p-4 border shadow"></div>
+    </div>    
+  </div>
   <div id="force"></div>
   <div id="touches"></div>
   <canvas>Sorry, your browser is too old for this demo.</canvas>
-  <div id="info">
-    <a href="https://github.com/quietshu/apple-pencil-safari-api-test" target="_blank">GitHub</a>
-    <button onclick="undoDraw()">Undo</button>
-  </div>
   <script src="index.js"></script>
 </body>
 </html>

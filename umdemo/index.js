@@ -1,3 +1,4 @@
+import html2canvas from 'html2canvas';
 const $force = document.querySelectorAll('#force')[0]
 const $touches = document.querySelectorAll('#touches')[0]
 const canvas = document.querySelectorAll('canvas')[0]
@@ -156,3 +157,10 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
     lineWidth = 0
   })
 };
+
+function saveCapture(element) {
+  html2canvas(element).then(function(canvas) {
+    var canvasImg = canvas.toDataURL("image/jpg");
+    $('#canvasImg').html('<img src="'+canvasImg+'" alt="">');
+  })
+}
