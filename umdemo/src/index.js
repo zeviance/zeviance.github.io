@@ -1,4 +1,7 @@
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas'
+import { generate } from 'stability-client'
+import StabilityOptions from 'stability-client'
+require('dotenv').config();
 
 const $force = document.querySelectorAll('#force')[0]
 const $touches = document.querySelectorAll('#touches')[0]
@@ -73,18 +76,37 @@ undoDrawBtn.onclick = undoDraw;
 
 function clearDraw () {
   strokeHistory.splice(0, strokeHistory.length);
-  context.clearRect(0, 0, canvas.width, canvas.height)
+  context.clearRect(0, 0, canvas.width, canvas.height);
 }
 clearDrawBtn.onclick = clearDraw;
 
 function saveCapture() {
   html2canvas(canvas).then(function(canvas) {
-    var canvasImg = canvas.toDataURL("image/jpg");
-    canvasImgScr.src = canvasImg;
+    var localImageDataURL = canvas.toDataURL("image/jpg");
+    canvasImgScr.src = localImageDataURL;
+    generateWithImagePrompt(localImageDataURL);
   })
 }
 saveCaptureBtn.onclick = saveCapture;
 
+function generateWithImagePrompt(localImageDataURL) {
+  const api = generate({
+    apiKey: process.env.DREAMSTUDIO_API_KEY,
+    prompt: 'A Patrick Star from spongebob',    
+    /*imagePrompt: {
+      mime: "image/jpg",
+      content: localImageDataURL,
+    }*/
+  })
+
+  api.on('image', ({ buffer, filePath }) => {
+    console.log('Image', buffer, filePath)
+  })
+
+  api.on('end', (data) => {
+    console.log('Generating Complete', data)
+  })
+}
 
 for (const ev of ["touchstart", "mousedown"]) {
   canvas.addEventListener(ev, function (e) {

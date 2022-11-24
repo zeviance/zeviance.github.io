@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "dotenv": "^16.0.3",
     "html2canvas": "^1.4.1",
     "parcel": "^2.8.0",
     "stability-client": "^1.7.0"
@@ -15,8 +16,19 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "buffer": "^5.7.1",
+    "events": "^3.3.0",
     "gh-pages": "^4.0.0",
-    "shx": "^0.3.2"
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "punycode": "^1.4.1",
+    "querystring-es3": "^0.2.1",
+    "shx": "^0.3.2",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0",
+    "util": "^0.12.5"
   },
   "description": ""
 }
