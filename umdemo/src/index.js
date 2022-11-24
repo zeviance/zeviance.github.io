@@ -1,6 +1,4 @@
 import html2canvas from 'html2canvas'
-import { generate } from 'stability-client'
-import StabilityOptions from 'stability-client'
 require('dotenv').config();
 
 const $force = document.querySelectorAll('#force')[0]
@@ -11,6 +9,10 @@ const context = canvas.getContext('2d')
 const saveCaptureBtn = document.querySelectorAll('#saveCaptureBtn')[0]
 const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
 const clearDrawBtn = document.querySelectorAll('#clearDrawBtn')[0]
+const REPLICATE_API_ENDPOINT = "https://api.replicate.com/v1/predictions";
+const REPLICATE_API_TOKEN = "Token d79af4b6bf587a3a1dcff2e0b243abbca58fd516";
+const REPLICATE_VERSION = "27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478";
+const REPLICATE_PROMPT = "patrick star on the beach under the sea";
 
 let lineWidth = 0
 let isMousedown = false
@@ -84,7 +86,8 @@ function saveCapture() {
   html2canvas(canvas).then(function(canvas) {
     var localImageDataURL = canvas.toDataURL("image/jpg");
     canvasImgScr.src = localImageDataURL;
-    generateWithImagePrompt(localImageDataURL);
+    //generateWithImagePrompt(localImageDataURL);
+    postPromptsToReplicateService();
   })
 }
 saveCaptureBtn.onclick = saveCapture;
@@ -199,3 +202,42 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
     lineWidth = 0
   })
 };
+
+/**
+ * Axios declaration to handle all the networking requests here.
+ */
+
+// Post Request
+// Construct Interceptor
+// If response == 201, keep/start pooling, intercept the url first
+// as long as status not succeeded or failed, keep pooling
+// handle response 
+function postPromptsToReplicateService() {
+  const data = { 
+    'version': REPLICATE_VERSION,
+    'input': { 'prompt': REPLICATE_PROMPT }, 
+  };
+
+  fetch(REPLICATE_API_ENDPOINT, {
+    method: 'GET',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+      'Origin' : 'null',
+      'Authorization': REPLICATE_API_TOKEN,
+    },
+    //body: JSON.stringify(data),
+  })
+  .then((response) => {
+    console.log('Response:', response);
+    response.headers.forEach(console.log);
+  })
+  .then((data) => {
+    console.log('Data:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+
