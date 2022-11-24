@@ -1,5 +1,3 @@
-console.log('Hello world!');
-
 import html2canvas from 'html2canvas';
 
 const $force = document.querySelectorAll('#force')[0]
