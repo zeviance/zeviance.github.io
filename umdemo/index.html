@@ -42,12 +42,13 @@
     <button onclick="undoDraw()">Undo</button>
     <div id="captureResult" style="padding: 10px; background: #f5da55">
       <h4 style="color: #000; ">Hello world!</h4>
-      <div id="canvasImg" class="p-4 border shadow"></div>
+      <img id="canvasImgScr" width="300" height="240" class="p-4 border shadow"></img>
     </div>    
   </div>
   <div id="force"></div>
   <div id="touches"></div>
   <canvas>Sorry, your browser is too old for this demo.</canvas>
+  <script src="html2canvas.js"></script>
   <script src="index.js"></script>
 </body>
 </html>

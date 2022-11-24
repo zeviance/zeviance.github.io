@@ -1,7 +1,8 @@
-import html2canvas from 'html2canvas';
+
 const $force = document.querySelectorAll('#force')[0]
 const $touches = document.querySelectorAll('#touches')[0]
 const canvas = document.querySelectorAll('canvas')[0]
+const canvasImgScr = document.querySelectorAll('#canvasImgScr')[0]
 const context = canvas.getContext('2d')
 let lineWidth = 0
 let isMousedown = false
@@ -151,16 +152,14 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
     }
 
     isMousedown = false
-
     requestIdleCallback(function () { strokeHistory.push([...points]); points = []})
-
     lineWidth = 0
   })
 };
 
-function saveCapture(element) {
-  html2canvas(element).then(function(canvas) {
+function saveCapture() {
+  html2canvas(canvas).then(function(canvas) {
     var canvasImg = canvas.toDataURL("image/jpg");
-    $('#canvasImg').html('<img src="'+canvasImg+'" alt="">');
+    canvasImgScr.src = canvasImg;
   })
 }
