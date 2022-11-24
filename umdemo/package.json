@@ -6,12 +6,17 @@
   },
   "name": "umdemo",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "parcel ./src/index.html",
+    "build": "parcel build ./src/index.html",
+    "predeploy": "rm -rf dist && parcel build src/index.html --no-source-maps --public-url ./",
+    "deploy": "gh-pages -d dist"
+  },
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "parcel-bundler": "^1.12.5"
-  }
+    "gh-pages": "^4.0.0",
+    "shx": "^0.3.2"
+  },
+  "description": ""
 }
