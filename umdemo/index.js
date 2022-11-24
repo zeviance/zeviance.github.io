@@ -1,9 +1,16 @@
+console.log('Hello world!');
+
+import html2canvas from 'html2canvas';
 
 const $force = document.querySelectorAll('#force')[0]
 const $touches = document.querySelectorAll('#touches')[0]
 const canvas = document.querySelectorAll('canvas')[0]
 const canvasImgScr = document.querySelectorAll('#canvasImgScr')[0]
 const context = canvas.getContext('2d')
+const saveCaptureBtn = document.querySelectorAll('#saveCaptureBtn')[0]
+const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
+const clearDrawBtn = document.querySelectorAll('#clearDrawBtn')[0]
+
 let lineWidth = 0
 let isMousedown = false
 let points = []
@@ -64,6 +71,22 @@ function undoDraw () {
     })
   })
 }
+undoDrawBtn.onclick = undoDraw;
+
+function clearDraw () {
+  strokeHistory.splice(0, strokeHistory.length);
+  context.clearRect(0, 0, canvas.width, canvas.height)
+}
+clearDrawBtn.onclick = clearDraw;
+
+function saveCapture() {
+  html2canvas(canvas).then(function(canvas) {
+    var canvasImg = canvas.toDataURL("image/jpg");
+    canvasImgScr.src = canvasImg;
+  })
+}
+saveCaptureBtn.onclick = saveCapture;
+
 
 for (const ev of ["touchstart", "mousedown"]) {
   canvas.addEventListener(ev, function (e) {
@@ -156,11 +179,3 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
     lineWidth = 0
   })
 };
-
-function saveCapture() {
-  html2canvas(canvas).then(function(canvas) {
-    var canvasImg = canvas.toDataURL("image/jpg");
-    canvasImgScr.src = canvasImg;
-  })
-}
-

@@ -38,8 +38,9 @@
 <body>
   <h1>Demo of SD </h1>
   <div id="info">
-    <button onclick="saveCapture()">Capture</button>
-    <button onclick="undoDraw()">Undo</button>
+    <button id="saveCaptureBtn">Capture</button>
+    <button id="undoDrawBtn">Undo</button>
+    <button id="clearDrawBtn">Clear</button>
     <div id="captureResult" style="padding: 10px; background: #f5da55">
       <h4 style="color: #000; ">Hello world!</h4>
       <img id="canvasImgScr" width="300" height="240" class="p-4 border shadow"></img>
@@ -48,10 +49,6 @@
   <div id="force"></div>
   <div id="touches"></div>
   <canvas>Sorry, your browser is too old for this demo.</canvas>
-  <script src="node_modules/html2canvas/moment.js"></script>
-  <script src="node_modules/moment/moment.js"></script>
-  <script src="html2canvas.js"></script>
-  <script src="generation_pb.js"></script>
-  <script src="index.js"></script>
+  <script type="module" src="index.js"></script>
 </body>
 </html>
