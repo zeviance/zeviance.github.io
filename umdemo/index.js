@@ -163,3 +163,4 @@ function saveCapture() {
     canvasImgScr.src = canvasImg;
   })
 }
+
