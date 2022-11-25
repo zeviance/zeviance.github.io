@@ -9,11 +9,13 @@ const context = canvas.getContext('2d')
 const saveCaptureBtn = document.querySelectorAll('#saveCaptureBtn')[0]
 const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
 const clearDrawBtn = document.querySelectorAll('#clearDrawBtn')[0]
-const REPLICATE_API_ENDPOINT = "https://api.replicate.com/v1/predictions";
-const REPLICATE_API_TOKEN = "Token d79af4b6bf587a3a1dcff2e0b243abbca58fd516";
+// Replicate const
 const REPLICATE_VERSION = "27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478";
 const REPLICATE_PROMPT = "patrick star on the beach under the sea";
-const replicate = new Replicate({proxyUrl: 'http://localhost:3000/api'});
+const replicate = new Replicate({
+  proxyUrl: 'http://localhost:3000/api',
+  pollingInterval: 1000,
+});
 
 let lineWidth = 0
 let isMousedown = false
@@ -92,25 +94,6 @@ function saveCapture() {
   })
 }
 saveCaptureBtn.onclick = saveCapture;
-
-function generateWithImagePrompt(localImageDataURL) {
-  const api = generate({
-    apiKey: process.env.DREAMSTUDIO_API_KEY,
-    prompt: 'A Patrick Star from spongebob',    
-    /*imagePrompt: {
-      mime: "image/jpg",
-      content: localImageDataURL,
-    }*/
-  })
-
-  api.on('image', ({ buffer, filePath }) => {
-    console.log('Image', buffer, filePath)
-  })
-
-  api.on('end', (data) => {
-    console.log('Generating Complete', data)
-  })
-}
 
 for (const ev of ["touchstart", "mousedown"]) {
   canvas.addEventListener(ev, function (e) {
@@ -204,54 +187,10 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
   })
 };
 
-/**
- * Axios declaration to handle all the networking requests here.
- */
-
-// Post Request
-// Construct Interceptor
-// If response == 201, keep/start pooling, intercept the url first
-// as long as status not succeeded or failed, keep pooling
-// handle response 
 async function postPromptsToReplicateService() {
   const helloWorldModel = await replicate.models.get('replicate/hello-world');
   const helloWorldPrediction = await helloWorldModel.predict({ text: "test"})
     .then( text => {
       console.log(text);
     });
-  
-  const data = { 
-    'version': REPLICATE_VERSION,
-    'input': { 'prompt': REPLICATE_PROMPT, }, 
-  }; 
-/*
-  fetch(
-    //"http://localhost:3000/info", {
-    "http://localhost:3000/json_placeholder/posts/1", {
-    //REPLICATE_API_ENDPOINT, {
-    method: 'GET',
-    //mode: 'no-cors',
-    //credentials: 'include',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': REPLICATE_API_TOKEN,
-    },
-    //body: JSON.stringify(data),
-  })
-  .then((response) => {
-    console.log('Response:', response);
-    // if (!response.ok) {
-    //   return response.text().then(text => { 
-    //     console.log("not ok:", response.error);
-    //     throw new Error(text);})
-    // }
-    // return response.json();
-  })
-  .then((data) => {
-    console.log('Data:', data);
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-  });  
-  */
 }
