@@ -106,7 +106,7 @@ for (const ev of ["touchstart", "mousedown"]) {
       x = translatedXCoor(e.touches[0].pageX) * 2
       y = translatedYCoor(e.touches[0].pageY) * 2
     } else {
-      pressure = 0.2
+      pressure = 0.5
       x = translatedXCoor(e.pageX) * 2
       y = translatedYCoor(e.pageY) * 2
     }
@@ -135,7 +135,7 @@ for (const ev of ['touchmove', 'mousemove']) {
       x = translatedXCoor(e.touches[0].pageX) * 2
       y = translatedYCoor(e.touches[0].pageY) * 2
     } else {
-      pressure = 0.2
+      pressure = 0.5
       x = translatedXCoor(e.pageX) * 2
       y = translatedYCoor(e.pageY) * 2
     }
