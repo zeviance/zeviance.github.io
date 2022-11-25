@@ -4,6 +4,7 @@
     "dotenv": "^16.0.3",
     "html2canvas": "^1.4.1",
     "parcel": "^2.8.0",
+    "replicate-js": "github:nicholascelestin/replicate-js",
     "stability-client": "^1.7.0"
   },
   "name": "umdemo",
@@ -17,6 +18,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "assert": "^2.0.0",
+    "browserify-zlib": "^0.2.0",
     "buffer": "^5.7.1",
     "events": "^3.3.0",
     "gh-pages": "^4.0.0",
@@ -27,6 +30,7 @@
     "punycode": "^1.4.1",
     "querystring-es3": "^0.2.1",
     "shx": "^0.3.2",
+    "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.0",
     "util": "^0.12.5"

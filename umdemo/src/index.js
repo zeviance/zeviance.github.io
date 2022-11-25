@@ -1,4 +1,6 @@
 import html2canvas from 'html2canvas'
+import Replicate from 'replicate-js'
+
 require('dotenv').config();
 
 const $force = document.querySelectorAll('#force')[0]
@@ -13,6 +15,7 @@ const REPLICATE_API_ENDPOINT = "https://api.replicate.com/v1/predictions";
 const REPLICATE_API_TOKEN = "Token d79af4b6bf587a3a1dcff2e0b243abbca58fd516";
 const REPLICATE_VERSION = "27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478";
 const REPLICATE_PROMPT = "patrick star on the beach under the sea";
+const replicate = new Replicate({token: REPLICATE_API_TOKEN});
 
 let lineWidth = 0
 let isMousedown = false
@@ -213,31 +216,44 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
 // as long as status not succeeded or failed, keep pooling
 // handle response 
 function postPromptsToReplicateService() {
+  //const helloWorldModel = replicate.models.get('replicate/hello-world');
+  //const helloWorldPrediction = helloWorldModel.predict({ text: "test"});
+  //console.log(helloWorldPrediction);
+  
   const data = { 
     'version': REPLICATE_VERSION,
-    'input': { 'prompt': REPLICATE_PROMPT }, 
-  };
+    'input': { 'prompt': REPLICATE_PROMPT, }, 
+  }; 
 
   fetch(REPLICATE_API_ENDPOINT, {
-    method: 'GET',
-    mode: 'no-cors',
+    method: 'POST',
+    //mode: 'no-cors',
+    //credentials: 'include',
     headers: {
-      'Content-Type': 'application/json',
-      'Origin' : 'null',
+      'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': REPLICATE_API_TOKEN,
+      //'Origin': '',
+      //'Host': 'api.replicate.com',
     },
-    //body: JSON.stringify(data),
+    body: JSON.stringify(data),
   })
   .then((response) => {
     console.log('Response:', response);
-    response.headers.forEach(console.log);
+    if (!response.ok) {
+      return response.text().then(text => { 
+        console.log("not ok:", response.error);
+        throw new Error(text);})
+    }
+    return response.json();
   })
   .then((data) => {
     console.log('Data:', data);
+    console.log('Data Message:', data.message);
   })
   .catch((error) => {
     console.error('Error:', error);
   });
+  
 }
 
 
