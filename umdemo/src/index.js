@@ -90,8 +90,7 @@ function saveCapture() {
     var localImageDataURL = canvas.toDataURL("image/jpg");
     canvasImgScr.src = localImageDataURL;
     canvasImgScr.style.visibility = 'visible';
-    //generateWithImagePrompt(localImageDataURL);
-    postPromptsToReplicateService();
+    //postPromptsToReplicateService();
   })
 }
 saveCaptureBtn.onclick = saveCapture;
@@ -107,7 +106,7 @@ for (const ev of ["touchstart", "mousedown"]) {
       x = translatedXCoor(e.touches[0].pageX) * 2
       y = translatedYCoor(e.touches[0].pageY) * 2
     } else {
-      pressure = 1.0
+      pressure = 0.2
       x = translatedXCoor(e.pageX) * 2
       y = translatedYCoor(e.pageY) * 2
     }
@@ -136,7 +135,7 @@ for (const ev of ['touchmove', 'mousemove']) {
       x = translatedXCoor(e.touches[0].pageX) * 2
       y = translatedYCoor(e.touches[0].pageY) * 2
     } else {
-      pressure = 1.0
+      pressure = 0.2
       x = translatedXCoor(e.pageX) * 2
       y = translatedYCoor(e.pageY) * 2
     }
