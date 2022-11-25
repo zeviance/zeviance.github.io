@@ -20,6 +20,7 @@ const replicate = new Replicate({
 let lineWidth = 0
 let isMousedown = false
 let points = []
+const {left, top} = canvas.getBoundingClientRect();
 
 canvas.width = window.innerWidth * 2
 canvas.height = window.innerHeight * 2
@@ -64,12 +65,9 @@ function drawOnCanvas (stroke) {
 function undoDraw () {
   strokeHistory.pop()
   context.clearRect(0, 0, canvas.width, canvas.height)
-
   strokeHistory.map(function (stroke) {
     if (strokeHistory.length === 0) return
-
     context.beginPath()
-
     let strokePath = [];
     stroke.map(function (point) {
       strokePath.push(point)
@@ -82,6 +80,8 @@ undoDrawBtn.onclick = undoDraw;
 function clearDraw () {
   strokeHistory.splice(0, strokeHistory.length);
   context.clearRect(0, 0, canvas.width, canvas.height);
+  canvasImgScr.src = '';
+  canvasImgScr.style.visibility = 'collapse';
 }
 clearDrawBtn.onclick = clearDraw;
 
@@ -89,6 +89,7 @@ function saveCapture() {
   html2canvas(canvas).then(function(canvas) {
     var localImageDataURL = canvas.toDataURL("image/jpg");
     canvasImgScr.src = localImageDataURL;
+    canvasImgScr.style.visibility = 'visible';
     //generateWithImagePrompt(localImageDataURL);
     postPromptsToReplicateService();
   })
@@ -103,12 +104,12 @@ for (const ev of ["touchstart", "mousedown"]) {
       if (e.touches[0]["force"] > 0) {
         pressure = e.touches[0]["force"]
       }
-      x = e.touches[0].pageX * 2
-      y = e.touches[0].pageY * 2
+      x = translatedXCoor(e.touches[0].pageX) * 2
+      y = translatedYCoor(e.touches[0].pageY) * 2
     } else {
       pressure = 1.0
-      x = e.pageX * 2
-      y = e.pageY * 2
+      x = translatedXCoor(e.pageX) * 2
+      y = translatedYCoor(e.pageY) * 2
     }
 
     isMousedown = true
@@ -132,12 +133,12 @@ for (const ev of ['touchmove', 'mousemove']) {
       if (e.touches[0]["force"] > 0) {
         pressure = e.touches[0]["force"]
       }
-      x = e.touches[0].pageX * 2
-      y = e.touches[0].pageY * 2
+      x = translatedXCoor(e.touches[0].pageX) * 2
+      y = translatedYCoor(e.touches[0].pageY) * 2
     } else {
       pressure = 1.0
-      x = e.pageX * 2
-      y = e.pageY * 2
+      x = translatedXCoor(e.pageX) * 2
+      y = translatedYCoor(e.pageY) * 2
     }
 
     // smoothen line width
@@ -148,7 +149,6 @@ for (const ev of ['touchmove', 'mousemove']) {
 
     requestIdleCallback(() => {
       $force.textContent = 'force = ' + pressure
-
       const touch = e.touches ? e.touches[0] : null
       if (touch) {
         $touches.innerHTML = `
@@ -166,26 +166,23 @@ for (const ev of ['touchmove', 'mousemove']) {
 
 for (const ev of ['touchend', 'touchleave', 'mouseup']) {
   canvas.addEventListener(ev, function (e) {
-    let pressure = 0.1;
-    let x, y;
-
-    if (e.touches && e.touches[0] && typeof e.touches[0]["force"] !== "undefined") {
-      if (e.touches[0]["force"] > 0) {
-        pressure = e.touches[0]["force"]
-      }
-      x = e.touches[0].pageX * 2
-      y = e.touches[0].pageY * 2
-    } else {
-      pressure = 1.0
-      x = e.pageX * 2
-      y = e.pageY * 2
-    }
-
     isMousedown = false
     requestIdleCallback(function () { strokeHistory.push([...points]); points = []})
     lineWidth = 0
   })
 };
+
+function translatedXCoor(x){
+  var rect = canvas.getBoundingClientRect();
+  var factor = rect.width / (canvas.width / 2); // div 2 since we scaled up
+  return (x - rect.left) / factor;
+}
+
+function translatedYCoor(y){
+  var rect = canvas.getBoundingClientRect();
+  var factor = rect.height / (canvas.height / 2); // div 2 since we scaled up
+  return  (y - rect.top) / factor;
+}
 
 async function postPromptsToReplicateService() {
   const helloWorldModel = await replicate.models.get('replicate/hello-world');
