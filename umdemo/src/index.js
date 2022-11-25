@@ -225,7 +225,9 @@ function postPromptsToReplicateService() {
     'input': { 'prompt': REPLICATE_PROMPT, }, 
   }; 
 
-  fetch("localhost:3000/info", {
+  fetch(
+    //"http://localhost:3000/info", {
+    "http://localhost:3000/json_placeholder/posts/1", {
     //REPLICATE_API_ENDPOINT, {
     method: 'GET',
     //mode: 'no-cors',
@@ -234,20 +236,19 @@ function postPromptsToReplicateService() {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': REPLICATE_API_TOKEN,
     },
-    body: JSON.stringify(data),
+    //body: JSON.stringify(data),
   })
   .then((response) => {
     console.log('Response:', response);
-    if (!response.ok) {
-      return response.text().then(text => { 
-        console.log("not ok:", response.error);
-        throw new Error(text);})
-    }
-    return response.json();
+    // if (!response.ok) {
+    //   return response.text().then(text => { 
+    //     console.log("not ok:", response.error);
+    //     throw new Error(text);})
+    // }
+    // return response.json();
   })
   .then((data) => {
     console.log('Data:', data);
-    console.log('Data Message:', data.message);
   })
   .catch((error) => {
     console.error('Error:', error);
