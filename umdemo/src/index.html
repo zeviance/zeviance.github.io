@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Touch API Test</title>
+  <title>UM Demo</title>
   <style>
     body {
       position: absolute;
@@ -17,16 +17,36 @@
       padding: 1em;
       box-sizing: border-box;
     }
-    h1 {
-      margin-top: 0;
-      color: #ccc;
+    
+    .main-title {
+      position: absolute;
+      margin: 0;
+      padding: 0;
+      color: #b1b1b1;
+      text-align: center;
+      top: 5%;
+      left: 50%;
+      -webkit-transform: translate3d(-50%,-50%,0);
+      transform: translate3d(-50%,-50%,0);
     }
+
+    .main-title .thick {
+      text-transform: uppercase;
+      font-size: 4.2em;
+      letter-spacing: 0.1em;
+    }
+
+    .main-title .thin {
+      font-weight: 200;
+    }
+
     canvas {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
+      width: 80%;
+      height: 80%;
+      left: 10%;
+      top: 10%;
+      border: 5px solid rgb(216, 216, 216);
     }
     #info {
       z-index: 1;
@@ -36,14 +56,15 @@
   </style>
 </head>
 <body>
-  <h1>Demo of SD </h1>
+  <h1 class="main-title">Unbreak <span class="thin">Machine</span></h1>
   <div id="info">
-    <button id="saveCaptureBtn">Capture</button>
-    <button id="undoDrawBtn">Undo</button>
-    <button id="clearDrawBtn">Clear</button>
+    
     <div id="captureResult" style="padding: 10px; background: #f5da55">
+      <button id="saveCaptureBtn">Capture</button>
+      <button id="undoDrawBtn">Undo</button>
+      <button id="clearDrawBtn">Clear</button>
       <h4 style="color: #000; ">Hello world!</h4>
-      <img id="canvasImgScr" width="300" height="240" class="p-4 border shadow"></img>
+      <img id="canvasImgScr" width="300"></img>
     </div>    
   </div>
   <div id="force"></div>
