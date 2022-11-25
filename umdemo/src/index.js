@@ -225,15 +225,14 @@ function postPromptsToReplicateService() {
     'input': { 'prompt': REPLICATE_PROMPT, }, 
   }; 
 
-  fetch(REPLICATE_API_ENDPOINT, {
-    method: 'POST',
+  fetch("localhost:3000/info", {
+    //REPLICATE_API_ENDPOINT, {
+    method: 'GET',
     //mode: 'no-cors',
     //credentials: 'include',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': REPLICATE_API_TOKEN,
-      //'Origin': '',
-      //'Host': 'api.replicate.com',
     },
     body: JSON.stringify(data),
   })
@@ -252,8 +251,5 @@ function postPromptsToReplicateService() {
   })
   .catch((error) => {
     console.error('Error:', error);
-  });
-  
+  });  
 }
-
-
