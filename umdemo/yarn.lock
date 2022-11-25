@@ -1892,7 +1892,7 @@
   "resolved" "https://registry.npmjs.org/node-domexception/-/node-domexception-1.0.0.tgz"
   "version" "1.0.0"
 
-"node-fetch@^3.2.6":
+"node-fetch@^3.2.6", "node-fetch@^3.3.0":
   "integrity" "sha512-BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA=="
   "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-3.3.0.tgz"
   "version" "3.3.0"

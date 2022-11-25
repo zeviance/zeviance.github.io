@@ -1,8 +1,6 @@
 import html2canvas from 'html2canvas'
 import Replicate from 'replicate-js'
 
-require('dotenv').config();
-
 const $force = document.querySelectorAll('#force')[0]
 const $touches = document.querySelectorAll('#touches')[0]
 const canvas = document.querySelectorAll('canvas')[0]
@@ -15,7 +13,7 @@ const REPLICATE_API_ENDPOINT = "https://api.replicate.com/v1/predictions";
 const REPLICATE_API_TOKEN = "Token d79af4b6bf587a3a1dcff2e0b243abbca58fd516";
 const REPLICATE_VERSION = "27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478";
 const REPLICATE_PROMPT = "patrick star on the beach under the sea";
-const replicate = new Replicate({token: REPLICATE_API_TOKEN});
+const replicate = new Replicate({proxyUrl: 'http://localhost:3000/api'});
 
 let lineWidth = 0
 let isMousedown = false
@@ -215,16 +213,18 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
 // If response == 201, keep/start pooling, intercept the url first
 // as long as status not succeeded or failed, keep pooling
 // handle response 
-function postPromptsToReplicateService() {
-  //const helloWorldModel = replicate.models.get('replicate/hello-world');
-  //const helloWorldPrediction = helloWorldModel.predict({ text: "test"});
-  //console.log(helloWorldPrediction);
+async function postPromptsToReplicateService() {
+  const helloWorldModel = await replicate.models.get('replicate/hello-world');
+  const helloWorldPrediction = await helloWorldModel.predict({ text: "test"})
+    .then( text => {
+      console.log(text);
+    });
   
   const data = { 
     'version': REPLICATE_VERSION,
     'input': { 'prompt': REPLICATE_PROMPT, }, 
   }; 
-
+/*
   fetch(
     //"http://localhost:3000/info", {
     "http://localhost:3000/json_placeholder/posts/1", {
@@ -253,4 +253,5 @@ function postPromptsToReplicateService() {
   .catch((error) => {
     console.error('Error:', error);
   });  
+  */
 }
