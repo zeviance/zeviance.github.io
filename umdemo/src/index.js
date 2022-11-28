@@ -93,10 +93,12 @@ function reset () {
 resetBtn.onclick = reset;
 
 function saveCapture() {
-  html2canvas(canvas, {scale: 0.5}).then(function(canvas) {
+  html2canvas(canvas, {
+      scale: 0.5,
+    }).then(function(canvas) {
     // check if prompt is empty
     let inputFieldText = inputField.value.trim();
-    let localImageDataURL = strokeHistory.length === 0 ? "" : canvas.toDataURL("image/jpg");
+    let localImageDataURL = strokeHistory.length === 0 ? "" : canvas.toDataURL("image/jpg", 0.75);
     console.log(localImageDataURL);
     if (inputFieldText.length === 0 && localImageDataURL.length === 0) return
     showPhotoLoader();
