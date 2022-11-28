@@ -8,8 +8,9 @@ const context = canvas.getContext('2d')
 const saveCaptureBtn = document.querySelectorAll('#saveCaptureBtn')[0]
 const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
 const resetDrawBtn = document.querySelectorAll('#resetBtn')[0]
+const inputField = document.querySelectorAll('#inputField')[0]
 // Replicate const
-const REPLICATE_PROMPT = "darth vader eating icecream";
+const REPLICATE_DEFAULT_PROMPT = "darth vader eating icecream";
 const REPLICATE_NUM_OF_IMAGES = 1;
 const replicate = new Replicate({
   proxyUrl: 'https://salty-oasis-20821.herokuapp.com/api',
@@ -87,11 +88,12 @@ resetDrawBtn.onclick = clearDraw;
 
 function saveCapture() {
   html2canvas(canvas).then(function(canvas) {
-    var localImageDataURL = canvas.toDataURL("image/jpg");
-    console.log("saveCapture clicked");
-    //canvasImgScr.src = localImageDataURL;
-    //canvasImgScr.style.visibility = 'visible';
-    //postPromptsToReplicateService();
+    // check if prompt is empty
+    let inputFieldText = inputField.value.trim();
+    console.log("prompt: "+ inputFieldText);
+    let localImageDataURL = strokeHistory.length === 0 ? "" : canvas.toDataURL("image/jpg");
+    if (inputFieldText.length == 0 && localImageDataURL.length == 0) return
+    postPromptsToReplicateService(inputFieldText, localImageDataURL);
   })
 }
 saveCaptureBtn.onclick = saveCapture;
@@ -187,16 +189,17 @@ function translatedYCoor(y){
   return  (y - rect.top) / factor;
 }
 
-async function postPromptsToReplicateService() {
+async function postPromptsToReplicateService(inputPrompt, localImageUrl) {
   // TODO: can potentially save one round trip down the road.
   console.log("firing commands");
   let stableDiffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
   let stableDiffusionImages = await stableDiffusionModel.predict({
-    prompt: REPLICATE_PROMPT,
+    prompt: inputPrompt.length == 0 ? REPLICATE_DEFAULT_PROMPT : inputPrompt,
     grid_size: REPLICATE_NUM_OF_IMAGES,
   })
     .then( data => {
       console.log(data);
+      console.log(data[0]);
     });
   // TODO: add error handling here.
 }
