@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>UM Demo</title>
   <style>
     body {
@@ -41,14 +41,13 @@
     }
 
     #mainContainer {
-      margin-left: 10%;
-      margin-right: auto;
+      margin-left: 0%;
+      margin-right: 0;
     }
 
     canvas {      
-      position: absolute;
-      width: 80%;
-      height: 80%;      
+      width: 100%;
+      height: 500px; 
       border: 5px solid rgb(216, 216, 216);
     }
 
@@ -56,8 +55,9 @@
       --gap: 2px;
       --num-cols: 4;
       --row-height: 256px;
+      --col-width: 256px;
 
-      width: 80%;
+      width: 100%;
       
       bottom: 1em;
       left: 10%;
@@ -69,6 +69,7 @@
       display: grid;
       grid-template-columns: repeat(var(--num-cols), 1fr);
       grid-auto-rows: var(--row-height);
+      grid-auto-columns: var(--col-width);
       gap: var(--gap);
     }
 
@@ -89,15 +90,6 @@
       bottom: 1em;
       left: 10%;
     }
-
-    /*
-    @media screen and (max-width: 1024px) {
-    #photogrid {
-      --num-cols: 2;
-      --row-height: 200px;
-    }
-    */
-
   </style>
 </head>
 <body>
@@ -113,10 +105,9 @@
   </div>
   <div id="force"></div>
   <div id="touches"></div>
-  <canvas>Sorry, your browser is too old for this demo.</canvas>
   <div id="mainContainer">
-    
-    <!-- <div id="photogrid">
+    <canvas>Sorry, your browser is too old for this demo.</canvas>
+    <div id="photogrid">
       <img id="photoHeroUnit" src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
@@ -127,7 +118,6 @@
       <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
     </div>
-    -->
   </div>
   <script type="module" src="index.js"></script>
 </body>

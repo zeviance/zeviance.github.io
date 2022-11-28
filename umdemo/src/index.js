@@ -133,7 +133,7 @@ for (const ev of ['touchmove', 'mousemove']) {
       if (e.touches[0]["force"] > 0) {
         pressure = e.touches[0]["force"]
       }
-      x = translatedXCoor(e.touches[0].pageX) * v
+      x = translatedXCoor(e.touches[0].pageX) * scaleFactor
       y = translatedYCoor(e.touches[0].pageY) * scaleFactor
     } else {
       pressure = 1.0
