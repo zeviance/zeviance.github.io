@@ -98,6 +98,11 @@ function saveCapture() {
 }
 saveCaptureBtn.onclick = saveCapture;
 
+function startLoadingHeroPic() {
+  // push heroPicDown and show the loading image
+
+}
+
 for (const ev of ["touchstart", "mousedown"]) {
   canvas.addEventListener(ev, function (e) {
     let pressure = 0.1;
