@@ -14,6 +14,8 @@ const photoHeroLoaderUnit = document.querySelectorAll('#photoHeroLoaderUnit')[0]
 const heroUnitContainer = document.querySelectorAll('#heroUnitContainer')[0]
 // Replicate const
 const REPLICATE_DEFAULT_PROMPT = "darth vader eating icecream";
+const REPLICATE_RESULT_WIDTH = 512;
+const REPLICATE_RESULT_HEIGHT = 512;
 const REPLICATE_NUM_OF_IMAGES = 1;
 const replicate = new Replicate({
   proxyUrl: 'https://salty-oasis-20821.herokuapp.com/api',
@@ -96,7 +98,7 @@ function saveCapture() {
     let inputFieldText = inputField.value.trim();
     let localImageDataURL = strokeHistory.length === 0 ? "" : canvas.toDataURL("image/jpg");
     console.log(localImageDataURL);
-    if (inputFieldText.length == 0 && localImageDataURL.length == 0) return
+    if (inputFieldText.length === 0 && localImageDataURL.length === 0) return
     showPhotoLoader();
     postPromptsToReplicateService(inputFieldText, localImageDataURL);
   })
@@ -213,8 +215,10 @@ async function postPromptsToReplicateService(inputPrompt, localImageUrl) {
   console.log(`posting to replicate service with prompt: ${inputPrompt} and localImageUrl: ${localImageUrl}`);
 
   let inputParam = {
-    prompt: inputPrompt.length == 0 ? REPLICATE_DEFAULT_PROMPT : inputPrompt,
+    prompt: inputPrompt,
     grid_size: REPLICATE_NUM_OF_IMAGES,
+    width: REPLICATE_RESULT_WIDTH,
+    height: REPLICATE_RESULT_HEIGHT,
   }
   if (localImageUrl.length > 0 ) {
     inputParam.init_image = localImageUrl;
