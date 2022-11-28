@@ -22,8 +22,9 @@ let isMousedown = false
 let points = []
 const {left, top} = canvas.getBoundingClientRect();
 
-canvas.width = window.innerWidth * 2
-canvas.height = window.innerHeight * 2
+const scaleFactor = 2;
+canvas.width = window.innerWidth * scaleFactor;
+canvas.height = window.innerHeight * scaleFactor;
 
 const strokeHistory = []
 
@@ -90,7 +91,7 @@ function saveCapture() {
     var localImageDataURL = canvas.toDataURL("image/jpg");
     canvasImgScr.src = localImageDataURL;
     canvasImgScr.style.visibility = 'visible';
-    //postPromptsToReplicateService();
+    postPromptsToReplicateService();
   })
 }
 saveCaptureBtn.onclick = saveCapture;
@@ -103,12 +104,12 @@ for (const ev of ["touchstart", "mousedown"]) {
       if (e.touches[0]["force"] > 0) {
         pressure = e.touches[0]["force"]
       }
-      x = translatedXCoor(e.touches[0].pageX) * 2
-      y = translatedYCoor(e.touches[0].pageY) * 2
+      x = translatedXCoor(e.touches[0].pageX) * scaleFactor
+      y = translatedYCoor(e.touches[0].pageY) * scaleFactor
     } else {
-      pressure = 0.5
-      x = translatedXCoor(e.pageX) * 2
-      y = translatedYCoor(e.pageY) * 2
+      pressure = 1.0
+      x = translatedXCoor(e.pageX) * scaleFactor
+      y = translatedYCoor(e.pageY) * scaleFactor
     }
 
     isMousedown = true
@@ -132,12 +133,12 @@ for (const ev of ['touchmove', 'mousemove']) {
       if (e.touches[0]["force"] > 0) {
         pressure = e.touches[0]["force"]
       }
-      x = translatedXCoor(e.touches[0].pageX) * 2
-      y = translatedYCoor(e.touches[0].pageY) * 2
+      x = translatedXCoor(e.touches[0].pageX) * v
+      y = translatedYCoor(e.touches[0].pageY) * scaleFactor
     } else {
-      pressure = 0.5
-      x = translatedXCoor(e.pageX) * 2
-      y = translatedYCoor(e.pageY) * 2
+      pressure = 1.0
+      x = translatedXCoor(e.pageX) * scaleFactor
+      y = translatedYCoor(e.pageY) * scaleFactor
     }
 
     // smoothen line width
@@ -173,13 +174,13 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
 
 function translatedXCoor(x){
   var rect = canvas.getBoundingClientRect();
-  var factor = rect.width / (canvas.width / 2); // div 2 since we scaled up
+  var factor = rect.width / (canvas.width / scaleFactor); // div 2 since we scaled up
   return (x - rect.left) / factor;
 }
 
 function translatedYCoor(y){
   var rect = canvas.getBoundingClientRect();
-  var factor = rect.height / (canvas.height / 2); // div 2 since we scaled up
+  var factor = rect.height / (canvas.height / scaleFactor); // div 2 since we scaled up
   return  (y - rect.top) / factor;
 }
 
