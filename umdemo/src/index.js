@@ -10,8 +10,8 @@ const saveCaptureBtn = document.querySelectorAll('#saveCaptureBtn')[0]
 const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
 const clearDrawBtn = document.querySelectorAll('#clearDrawBtn')[0]
 // Replicate const
-const REPLICATE_VERSION = "27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478";
-const REPLICATE_PROMPT = "patrick star on the beach under the sea";
+const REPLICATE_PROMPT = "darth vader eating icecream";
+const REPLICATE_NUM_OF_IMAGES = 4;
 const replicate = new Replicate({
   proxyUrl: 'http://localhost:3000/api',
   pollingInterval: 1000,
@@ -185,9 +185,15 @@ function translatedYCoor(y){
 }
 
 async function postPromptsToReplicateService() {
-  const helloWorldModel = await replicate.models.get('replicate/hello-world');
-  const helloWorldPrediction = await helloWorldModel.predict({ text: "test"})
-    .then( text => {
-      console.log(text);
+  // TODO: can potentially save one round trip down the road.
+  console.log("firing commands");
+  let stableDiffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
+  let stableDiffusionImages = await stableDiffusionModel.predict({
+    prompt: REPLICATE_PROMPT,
+    grid_size: REPLICATE_NUM_OF_IMAGES,
+  })
+    .then( data => {
+      console.log(data);
     });
+  // TODO: add error handling here.
 }
