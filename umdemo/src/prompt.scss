@@ -4,16 +4,16 @@
   --color-light: white;
   --color-dark: #212121;
   --color-signal: #fab700;
-  
+
   --color-background: var(--color-light);
   --color-text: var(--color-dark);
   --color-accent: var(--color-signal);
-  
+
   --size-bezel: .5rem;
   --size-radius: 4px;
-  
+
   line-height: 1.4;
-  
+
   font-family: 'Inter', sans-serif;
   font-size: calc(.6rem + .4vw);
   color: var(--color-text);
@@ -44,7 +44,7 @@ mark {
   border-radius: var(--size-radius);
   border: 3px solid var(--color-shadow, currentColor);
   box-shadow: .5rem .5rem 0 var(--color-shadow, currentColor);
-  
+
   *:first-child {
     margin-top: 0;
   }
@@ -57,7 +57,7 @@ mark {
 
 .input {
   position: relative;
-  
+
   &__label {
     position: absolute;
     left: 0;
@@ -73,6 +73,13 @@ mark {
     font-weight: bold;
     line-height: 1.2;
   }
+  // fuck me, I can't figure out why iOS devices are measuring margin starting point
+  // differently, just gonna if then else for now.
+  @media (any-pointer: coarse) {
+    &__label {
+      margin-top: -35px;
+    }
+  }
   &__field {
     box-sizing: border-box;
     display: block;
@@ -82,7 +89,7 @@ mark {
     color: currentColor;
     background: transparent;
     border-radius: var(--size-radius);
-    
+
     &:focus,
     &:not(:placeholder-shown) {
       & + .input__label {
@@ -105,11 +112,11 @@ button {
   border: none;
   border-radius: var(--size-radius);
   font-weight: 900;
-  
+
   &[type=cancel]{
     background: var(--color-background);
     font-weight: 200;
-  } 
+  }
 }
 
 button + button {
