@@ -211,7 +211,6 @@ function translatedYCoor(y){
 async function postPromptsToReplicateService(inputPrompt, localImageUrl) {
   // TODO: can potentially save one round trip down the road.
   console.log(`posting to replicate service with prompt: ${inputPrompt} and localImageUrl: ${localImageUrl}`);
-
   let inputParam = {
     prompt: inputPrompt.length == 0 ? REPLICATE_DEFAULT_PROMPT : inputPrompt,
     grid_size: REPLICATE_NUM_OF_IMAGES,
