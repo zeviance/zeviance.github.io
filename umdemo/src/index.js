@@ -147,20 +147,7 @@ for (const ev of ['touchmove', 'mousemove']) {
 
     drawOnCanvas(points);
 
-    requestIdleCallback(() => {
-      $force.textContent = 'force = ' + pressure
-      const touch = e.touches ? e.touches[0] : null
-      if (touch) {
-        $touches.innerHTML = `
-          touchType = ${touch.touchType} ${touch.touchType === 'direct' ? '👆' : '✍️'} <br/>
-          radiusX = ${touch.radiusX} <br/>
-          radiusY = ${touch.radiusY} <br/>
-          rotationAngle = ${touch.rotationAngle} <br/>
-          altitudeAngle = ${touch.altitudeAngle} <br/>
-          azimuthAngle = ${touch.azimuthAngle} <br/>
-        `
-      }
-    })
+    //showTouchPencilDebugDetails();
   })
 }
 
@@ -171,6 +158,23 @@ for (const ev of ['touchend', 'touchleave', 'mouseup']) {
     lineWidth = 0
   })
 };
+
+function showTouchPencilDebugDetails() {
+  requestIdleCallback(() => {
+    $force.textContent = 'force = ' + pressure
+    const touch = e.touches ? e.touches[0] : null
+    if (touch) {
+      $touches.innerHTML = `
+        touchType = ${touch.touchType} ${touch.touchType === 'direct' ? '👆' : '✍️'} <br/>
+        radiusX = ${touch.radiusX} <br/>
+        radiusY = ${touch.radiusY} <br/>
+        rotationAngle = ${touch.rotationAngle} <br/>
+        altitudeAngle = ${touch.altitudeAngle} <br/>
+        azimuthAngle = ${touch.azimuthAngle} <br/>
+      `
+    }
+  })
+}
 
 function translatedXCoor(x){
   var rect = canvas.getBoundingClientRect();

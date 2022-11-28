@@ -38,9 +38,9 @@ body {
   margin-right: 0;
 }
 
-canvas {      
+canvas {
   width: 100%;
-  height: 500px; 
+  height: 500px;
   border: 5px solid rgb(216, 216, 216);
 }
 
@@ -51,7 +51,7 @@ canvas {
   --col-width: 256px;
 
   width: 100%;
-  
+
   bottom: 1em;
   left: 10%;
   clear: both;
@@ -79,8 +79,9 @@ canvas {
 
 #toolsPanel {
   z-index: 999;
-  bottom: 1em; 
-  position:sticky; 
+  bottom: 1em;
+  left: 7%;
+  margin-top: -40px;
 }
 
 #captureResult {
