@@ -13,7 +13,7 @@ const clearDrawBtn = document.querySelectorAll('#clearDrawBtn')[0]
 const REPLICATE_PROMPT = "darth vader eating icecream";
 const REPLICATE_NUM_OF_IMAGES = 1;
 const replicate = new Replicate({
-  proxyUrl: 'http://salty-oasis-20821.herokuapp.com/api',
+  proxyUrl: 'https://salty-oasis-20821.herokuapp.com/api',
   pollingInterval: 1000,
 });
 
