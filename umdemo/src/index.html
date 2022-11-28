@@ -5,32 +5,41 @@
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>UM Demo</title>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="prompt.scss" />
 </head>
 <body>
   <h1 class="main-title">Unbreak <span class="thin">Machine</span></h1>
-  <div id="info">    
-    <div id="captureResult" style="padding: 10px; background: #f5da55">
-      <button id="saveCaptureBtn">Capture</button>
-      <button id="undoDrawBtn">Undo</button>
-      <button id="clearDrawBtn">Clear</button>
-      <h4 style="color: #000; ">Hello world!</h4>
-      <img id="canvasImgScr" width="200"></img>
-    </div>    
-  </div>
+  
   <div id="force"></div>
   <div id="touches"></div>
   <div id="mainContainer">
     <canvas>Sorry, your browser is too old for this demo.</canvas>
+    <div id="toolsPanel">    
+      <button id="undoDrawBtn">↩️</button>
+    </div>
+    <div class="promptCard">
+      <h2>🔥 Almost there...</h2>
+      <label class="input">
+        <input class="input__field" type="text" placeholder=" " />
+        <span class="input__label">Tell us more your masterpiece</span>
+      </label>
+      <div class="button-group">
+        <button id="saveCaptureBtn">🔥Let's Go🔥</button>
+        <button type="cancel">Cancel</button>
+      </div>
+    </div>
+
+    
     <div id="photogrid">
       <img id="photoHeroUnit" src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
-      <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/MuE7EQmfxi0DA63rf2DcLj8MqLrUjfYRFwZ0lKhX0Fi5OAJgA/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/MuE7EQmfxi0DA63rf2DcLj8MqLrUjfYRFwZ0lKhX0Fi5OAJgA/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
       <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
-      <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
-      <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/MuE7EQmfxi0DA63rf2DcLj8MqLrUjfYRFwZ0lKhX0Fi5OAJgA/out-0.png"></img>
     </div>
   </div>
   <script type="module" src="index.js"></script>

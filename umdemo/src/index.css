@@ -77,9 +77,13 @@ canvas {
   grid-column: span 2;
 }
 
-#info {
-  z-index: 1;
-  position: absolute;
-  bottom: 1em;
-  left: 10%;
+#toolsPanel {
+  z-index: 999;
+  bottom: 1em; 
+  position:sticky; 
+}
+
+#captureResult {
+  padding: 10px;
+  background: #9c9c9c64
 }

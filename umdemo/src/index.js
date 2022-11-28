@@ -4,11 +4,9 @@ import Replicate from 'replicate-js'
 const $force = document.querySelectorAll('#force')[0]
 const $touches = document.querySelectorAll('#touches')[0]
 const canvas = document.querySelectorAll('canvas')[0]
-const canvasImgScr = document.querySelectorAll('#canvasImgScr')[0]
 const context = canvas.getContext('2d')
 const saveCaptureBtn = document.querySelectorAll('#saveCaptureBtn')[0]
 const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
-const clearDrawBtn = document.querySelectorAll('#clearDrawBtn')[0]
 // Replicate const
 const REPLICATE_PROMPT = "darth vader eating icecream";
 const REPLICATE_NUM_OF_IMAGES = 1;
@@ -78,20 +76,12 @@ function undoDraw () {
 }
 undoDrawBtn.onclick = undoDraw;
 
-function clearDraw () {
-  strokeHistory.splice(0, strokeHistory.length);
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  canvasImgScr.src = '';
-  canvasImgScr.style.visibility = 'collapse';
-}
-clearDrawBtn.onclick = clearDraw;
-
 function saveCapture() {
   html2canvas(canvas).then(function(canvas) {
     var localImageDataURL = canvas.toDataURL("image/jpg");
-    canvasImgScr.src = localImageDataURL;
-    canvasImgScr.style.visibility = 'visible';
-    postPromptsToReplicateService();
+    //canvasImgScr.src = localImageDataURL;
+    //canvasImgScr.style.visibility = 'visible';
+    //postPromptsToReplicateService();
   })
 }
 saveCaptureBtn.onclick = saveCapture;
