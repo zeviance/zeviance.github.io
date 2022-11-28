@@ -38,6 +38,13 @@ body {
   margin-right: 0;
 }
 
+#toolsPanel {
+  z-index: 999;
+  bottom: 1em;
+  left: 7%;
+  margin-top: -40px;
+}
+
 canvas {
   width: 100%;
   height: 500px;
@@ -47,10 +54,10 @@ canvas {
 #photogrid {
   --gap: 2px;
   --num-cols: 4;
-  --row-height: 256px;
-  --col-width: 256px;
+  --row-height: 200px;
+  --col-width: 200px;
 
-  width: 1024px;
+  width: 800px;
   margin: auto;
 
   bottom: 1em;
@@ -73,17 +80,15 @@ canvas {
   object-fit: cover;
 }
 
-#HeroUnit {
+#heroUnitContainer {
   grid-row: span 2;
   grid-column: span 2;
-  object-fit: cover;
 }
 
-#toolsPanel {
-  z-index: 999;
-  bottom: 1em;
-  left: 7%;
-  margin-top: -40px;
+#photoHeroUnit {
+  width: 100%;
+  height: 100%;
+  object-fit:fill;
 }
 
 @keyframes animate {
@@ -96,15 +101,12 @@ canvas {
 }
 
 #photoHeroLoaderUnit {
-  width: 50%;
-  height: 50%;
-  object-fit: cover;
-  visibility: collapse;
-  position: relative;
+  width: 75%;
+  height: 75%;;
   margin: auto;
   border-radius: 50%;
   background: linear-gradient(#f07e6e, #84cdfa, #5ad1cd);
-  animation: animate 1.2s linear infinite;
+  animation: animate 3.6s linear infinite;
 }
 
 #photoHeroLoaderUnit span {
@@ -143,12 +145,11 @@ canvas {
   border-radius: 50%;
 }
 
-
 /* Anything under 1024px */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
 	#photogrid {
-		--num-cols: 2;
-    width: 512px;
+		--num-cols: 3;
+    width: 600px;
 	}
 
   #photogrid > img {

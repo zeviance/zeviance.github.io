@@ -9,6 +9,9 @@ const saveCaptureBtn = document.querySelectorAll('#saveCaptureBtn')[0]
 const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
 const resetDrawBtn = document.querySelectorAll('#resetBtn')[0]
 const inputField = document.querySelectorAll('#inputField')[0]
+const photoHeroUnit =  document.querySelectorAll('#photoHeroUnit')[0]
+const photoHeroLoaderUnit = document.querySelectorAll('#photoHeroLoaderUnit')[0]
+const heroUnitContainer = document.querySelectorAll('#heroUnitContainer')[0]
 // Replicate const
 const REPLICATE_DEFAULT_PROMPT = "darth vader eating icecream";
 const REPLICATE_NUM_OF_IMAGES = 1;
@@ -29,6 +32,7 @@ canvas.height = window.innerHeight * scaleFactor;
 const strokeHistory = []
 
 const requestIdleCallback = window.requestIdleCallback || function (fn) { setTimeout(fn, 1) };
+photoHeroLoaderUnit.hidden = true;
 
 /**
  * This function takes in an array of points and draws them onto the canvas.
@@ -93,6 +97,7 @@ function saveCapture() {
     console.log("prompt: "+ inputFieldText);
     let localImageDataURL = strokeHistory.length === 0 ? "" : canvas.toDataURL("image/jpg");
     if (inputFieldText.length == 0 && localImageDataURL.length == 0) return
+    startLoadingHeroPic();
     postPromptsToReplicateService(inputFieldText, localImageDataURL);
   })
 }
@@ -100,7 +105,11 @@ saveCaptureBtn.onclick = saveCapture;
 
 function startLoadingHeroPic() {
   // push heroPicDown and show the loading image
-
+  photoHeroLoaderUnit.hidden = false;
+  photoHeroUnit.hidden = true;
+  let newImg = document.createElement("img");
+  newImg.src = photoHeroUnit.src;
+  heroUnitContainer.after(newImg);
 }
 
 for (const ev of ["touchstart", "mousedown"]) {
@@ -197,6 +206,7 @@ function translatedYCoor(y){
 async function postPromptsToReplicateService(inputPrompt, localImageUrl) {
   // TODO: can potentially save one round trip down the road.
   console.log("firing commands");
+  return
   let stableDiffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
   let stableDiffusionImages = await stableDiffusionModel.predict({
     prompt: inputPrompt.length == 0 ? REPLICATE_DEFAULT_PROMPT : inputPrompt,
