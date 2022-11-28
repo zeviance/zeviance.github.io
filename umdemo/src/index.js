@@ -11,9 +11,9 @@ const undoDrawBtn = document.querySelectorAll('#undoDrawBtn')[0]
 const clearDrawBtn = document.querySelectorAll('#clearDrawBtn')[0]
 // Replicate const
 const REPLICATE_PROMPT = "darth vader eating icecream";
-const REPLICATE_NUM_OF_IMAGES = 4;
+const REPLICATE_NUM_OF_IMAGES = 1;
 const replicate = new Replicate({
-  proxyUrl: 'http://localhost:3000/api',
+  proxyUrl: 'http://salty-oasis-20821.herokuapp.com/api',
   pollingInterval: 1000,
 });
 

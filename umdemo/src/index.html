@@ -19,7 +19,7 @@
     }
     
     .main-title {
-      position: absolute;
+      position: fixed;
       margin: 0;
       padding: 0;
       color: #b1b1b1;
@@ -40,19 +40,61 @@
       font-weight: 200;
     }
 
-    canvas {
-      position: absolute;
+    #mainContainer {
+      margin-left: 16%;
+      margin-right: auto;
+    }
+
+    canvas {      
       width: 80%;
-      height: 80%;
-      left: 10%;
-      top: 10%;
+      height: 80%;      
       border: 5px solid rgb(216, 216, 216);
     }
+
+    #photogrid {
+      --gap: 8px;
+      --num-cols: 4;
+      --row-height: 256px;
+
+      width: 80%;
+      
+      bottom: 1em;
+      left: 10%;
+      clear: both;
+
+      box-sizing: border-box;
+      padding: var(--gap);
+
+      display: grid;
+      grid-template-columns: repeat(var(--num-cols), 1fr);
+      grid-auto-rows: var(--row-height);
+      gap: var(--gap);
+    }
+
+    #photogrid > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #photoHeroUnit {
+      grid-row: span 2;
+      grid-column: span 2;
+    }
+
     #info {
       z-index: 1;
       position: absolute;
       bottom: 1em;
+      left: 10%;
     }
+
+    @media screen and (max-width: 1024px) {
+    #photogrid {
+      --num-cols: 2;
+      --row-height: 200px;
+    }
+
   </style>
 </head>
 <body>
@@ -68,7 +110,20 @@
   </div>
   <div id="force"></div>
   <div id="touches"></div>
-  <canvas>Sorry, your browser is too old for this demo.</canvas>
+  <div id="mainContainer">
+    <canvas>Sorry, your browser is too old for this demo.</canvas>
+    <div id="photogrid">
+      <img id="photoHeroUnit" src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/9HPMisASvzKLLp0TU9yqcpMXtNm1wkcLwKE6Omj4ri1hfNCIA/out-0.png"></img>
+      <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
+    </div>
+  </div>
   <script type="module" src="index.js"></script>
 </body>
 </html>
