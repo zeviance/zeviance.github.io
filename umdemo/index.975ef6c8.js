@@ -543,7 +543,7 @@ const canvas = document.querySelectorAll("canvas")[0];
 const context = canvas.getContext("2d");
 const saveCaptureBtn = document.querySelectorAll("#saveCaptureBtn")[0];
 const undoDrawBtn = document.querySelectorAll("#undoDrawBtn")[0];
-const resetDrawBtn = document.querySelectorAll("#resetBtn")[0];
+const resetBtn = document.querySelectorAll("#resetBtn")[0];
 const inputField = document.querySelectorAll("#inputField")[0];
 const photoHeroUnit = document.querySelectorAll("#photoHeroUnit")[0];
 const photoHeroLoaderUnit = document.querySelectorAll("#photoHeroLoaderUnit")[0];
@@ -610,13 +610,13 @@ photoHeroLoaderUnit.hidden = true;
     });
 }
 undoDrawBtn.onclick = undoDraw;
-function clearDraw() {
+function reset() {
     strokeHistory.splice(0, strokeHistory.length);
     context.clearRect(0, 0, canvas.width, canvas.height);
     // clear prompt
     inputField.value = "";
 }
-resetDrawBtn.onclick = clearDraw;
+resetBtn.onclick = reset;
 function saveCapture() {
     (0, _html2CanvasDefault.default)(canvas).then(function(canvas) {
         // check if prompt is empty
