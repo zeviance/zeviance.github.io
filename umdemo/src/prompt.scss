@@ -4,6 +4,8 @@
   --color-light: white;
   --color-dark: #212121;
   --color-signal: #fab700;
+  --color-signal-hovered: #ffd256;
+  --color-signal-pressed: #b28300;
 
   --color-background: var(--color-light);
   --color-text: var(--color-dark);
@@ -117,6 +119,16 @@ button {
     background: var(--color-background);
     font-weight: 200;
   }
+}
+
+button:hover {
+  background: var(--color-signal-hovered);
+  transition: 0.3s;
+}
+
+button:active {
+  background: var(--color-signal-pressed);
+  transition: 0.3s;
 }
 
 button + button {

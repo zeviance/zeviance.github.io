@@ -146,7 +146,6 @@ for (const ev of ['touchmove', 'mousemove']) {
     points.push({ x, y, lineWidth })
 
     drawOnCanvas(points);
-
     //showTouchPencilDebugDetails();
   })
 }
