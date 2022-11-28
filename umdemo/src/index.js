@@ -94,7 +94,6 @@ function saveCapture() {
   html2canvas(canvas).then(function(canvas) {
     // check if prompt is empty
     let inputFieldText = inputField.value.trim();
-    console.log("prompt: "+ inputFieldText);
     let localImageDataURL = strokeHistory.length === 0 ? "" : canvas.toDataURL("image/jpg");
     if (inputFieldText.length == 0 && localImageDataURL.length == 0) return
     showPhotoLoader();
@@ -211,24 +210,24 @@ function translatedYCoor(y){
 async function postPromptsToReplicateService(inputPrompt, localImageUrl) {
   // TODO: can potentially save one round trip down the road.
   console.log(`posting to replicate service with prompt: ${inputPrompt} and localImageUrl: ${localImageUrl}`);
+
   let inputParam = {
     prompt: inputPrompt.length == 0 ? REPLICATE_DEFAULT_PROMPT : inputPrompt,
     grid_size: REPLICATE_NUM_OF_IMAGES,
   }
-
   if (localImageUrl.length > 0 ) {
     inputParam.init_image = localImageUrl;
   }
 
   let stableDiffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
-  let stableDiffusionImages = await stableDiffusionModel.predict({inputParam})
-    .then( data => {
-      console.log("received data :" + data);
-      if (data == null) throw new Error("Data is empty");
-      let newImageUrL = data[0];
-      handleIncomingNewImgUrL(newImageUrL);
-    })
-    .catch ( error => {
-      console.error(error);
-    });
+  let stableDiffusionImages = await stableDiffusionModel.predict(inputParam)
+  .then( data => {
+    console.log("received data :" + data);
+    if (data == null) throw new Error("Data is empty");
+    let newImageUrL = data[0];
+    handleIncomingNewImgUrL(newImageUrL);
+  })
+  .catch ( error => {
+    console.error(error);
+  });
 }
