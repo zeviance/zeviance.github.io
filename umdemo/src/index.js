@@ -97,19 +97,24 @@ function saveCapture() {
     console.log("prompt: "+ inputFieldText);
     let localImageDataURL = strokeHistory.length === 0 ? "" : canvas.toDataURL("image/jpg");
     if (inputFieldText.length == 0 && localImageDataURL.length == 0) return
-    startLoadingHeroPic();
+    showPhotoLoader();
     postPromptsToReplicateService(inputFieldText, localImageDataURL);
   })
 }
 saveCaptureBtn.onclick = saveCapture;
 
-function startLoadingHeroPic() {
-  // push heroPicDown and show the loading image
+function showPhotoLoader() {
   photoHeroLoaderUnit.hidden = false;
   photoHeroUnit.hidden = true;
   let newImg = document.createElement("img");
   newImg.src = photoHeroUnit.src;
   heroUnitContainer.after(newImg);
+}
+
+function handleIncomingNewImgUrL(newImageUrl) {
+  photoHeroUnit.src = newImageUrl;
+  photoHeroLoaderUnit.hidden = true;
+  photoHeroUnit.hidden = false;
 }
 
 for (const ev of ["touchstart", "mousedown"]) {
@@ -206,15 +211,15 @@ function translatedYCoor(y){
 async function postPromptsToReplicateService(inputPrompt, localImageUrl) {
   // TODO: can potentially save one round trip down the road.
   console.log("firing commands");
-  return
   let stableDiffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
   let stableDiffusionImages = await stableDiffusionModel.predict({
     prompt: inputPrompt.length == 0 ? REPLICATE_DEFAULT_PROMPT : inputPrompt,
     grid_size: REPLICATE_NUM_OF_IMAGES,
   })
     .then( data => {
-      console.log(data);
-      console.log(data[0]);
+      console.log("received data :" + data);
+      let newImageUrL = data[0];
+      handleIncomingNewImgUrL(newImageUrL);
     });
   // TODO: add error handling here.
 }
