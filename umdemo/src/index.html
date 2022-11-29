@@ -9,13 +9,10 @@
 </head>
 <body>
   <h1 class="main-title">CWong <span class="thin">Machine</span></h1>
-
-  <div id="force"></div>
-  <div id="touches"></div>
   <div id="mainContainer">
-    <canvas>Sorry, your browser is too old for this demo.</canvas>
+    <canvas id="canvas">Sorry, your browser is too old for this demo.</canvas>
     <div id="toolsPanel">
-      <button id="undoDrawBtn">↩️</button>
+      <input type="color" id="colourInput" value="#3d34a5" />
     </div>
     <div class="promptCard">
       <h2>🔥 Almost there...</h2>
@@ -40,6 +37,8 @@
       <img src="https://replicate.delivery/pbxt/egSK7pUxZfmaKU3gFwl8Cf7CEeO4D7meKtNGBY8ESeEMgWHBE/out-0.png"></img>
     </div>
   </div>
+  <script type="module" src="colorCanvas.js"></script>
   <script type="module" src="index.js"></script>
+
 </body>
 </html>

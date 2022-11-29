@@ -41,8 +41,8 @@ body {
 #toolsPanel {
   z-index: 999;
   bottom: 1em;
-  left: 7%;
-  margin-top: -40px;
+  left: 10%;
+  padding: 10px;
 }
 
 canvas {
