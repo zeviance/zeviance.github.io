@@ -19,10 +19,12 @@ export async function callReplicateService(inputPrompt, localImageUrl) {
     width: REPLICATE_RESULT_WIDTH,
     height: REPLICATE_RESULT_HEIGHT,
   }
+  let diffusionModel = null;
   if (localImageUrl.length > 0 ) {
     inputParam.init_image = localImageUrl;
+    diffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
+  } else {
+    diffusionModel = await replicate.models.get("prompthero/openjourney/");
   }
-
-  let stableDiffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
-  return await stableDiffusionModel.predict(inputParam);
+  return await diffusionModel.predict(inputParam);
 }
