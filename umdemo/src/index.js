@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas'
-import Replicate from 'replicate-js'
+import { callReplicateService }  from './replicateapi.js'
 
 const $force = document.querySelectorAll('#force')[0]
 const $touches = document.querySelectorAll('#touches')[0]
@@ -12,20 +12,10 @@ const inputField = document.querySelectorAll('#inputField')[0]
 const photoHeroUnit =  document.querySelectorAll('#photoHeroUnit')[0]
 const photoHeroLoaderUnit = document.querySelectorAll('#photoHeroLoaderUnit')[0]
 const heroUnitContainer = document.querySelectorAll('#heroUnitContainer')[0]
-// Replicate const
-const REPLICATE_DEFAULT_PROMPT = "darth vader eating icecream";
-const REPLICATE_RESULT_WIDTH = 512;
-const REPLICATE_RESULT_HEIGHT = 512;
-const REPLICATE_NUM_OF_IMAGES = 1;
-const replicate = new Replicate({
-  proxyUrl: 'https://salty-oasis-20821.herokuapp.com/api',
-  pollingInterval: 1000,
-});
 
 let lineWidth = 0
 let isMousedown = false
 let points = []
-const {left, top} = canvas.getBoundingClientRect();
 
 const scaleFactor = 2;
 canvas.width = window.innerWidth * scaleFactor;
@@ -213,21 +203,7 @@ function translatedYCoor(y){
 }
 
 async function postPromptsToReplicateService(inputPrompt, localImageUrl) {
-  // TODO: can potentially save one round trip down the road.
-  console.log(`posting to replicate service with prompt: ${inputPrompt} and localImageUrl: ${localImageUrl}`);
-
-  let inputParam = {
-    prompt: inputPrompt,
-    grid_size: REPLICATE_NUM_OF_IMAGES,
-    width: REPLICATE_RESULT_WIDTH,
-    height: REPLICATE_RESULT_HEIGHT,
-  }
-  if (localImageUrl.length > 0 ) {
-    inputParam.init_image = localImageUrl;
-  }
-
-  let stableDiffusionModel = await replicate.models.get("stability-ai/stable-diffusion/");
-  let stableDiffusionImages = await stableDiffusionModel.predict(inputParam)
+  callReplicateService(inputPrompt, localImageUrl)
   .then( data => {
     console.log("received data :" + data);
     if (data == null) throw new Error("Data is empty");
